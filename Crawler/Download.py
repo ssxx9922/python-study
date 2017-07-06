@@ -10,11 +10,12 @@ class download:
     
     def __init__(self):
         self.iplist = []
-        html = requests.get('http://www.xicidaili.com/',headers = {'User-Agent':'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'})
-        ips = BeautifulSoup(html.text,'lxml').find('div',class_='clearfix').find_all('tr',class_='odd')
+        html = requests.get('http://www.66ip.cn/areaindex_1/1.html', headers={'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'})
+        ips = BeautifulSoup(html.text, 'lxml').find('div',class_='containerbox boxindex').find('table').find_all('tr')
         for ip in ips:
-            i = ip.find_all('td')[1].get_text()
+            i = 'http://' + ip.find_all('td')[0].get_text() + ':' + ip.find_all('td')[1].get_text()
             self.iplist.append(i.strip())
+        del self.iplist[0]
         print(u'代理有',self.iplist)
 
         self.user_agent_list = [
@@ -39,41 +40,42 @@ class download:
         ]
 
 
-    def get(self,url,timeout,proxy = None,num_retries = 6):
-        print(u'开始获取',url)
-        UA = random.choice(self.user_agent_list)
-        headers = {"User-Agent":UA}
+    def get(self, url, timeout, proxy=None, num_retries=6): ##给函数一个默认参数proxy为空
+        UA = random.choice(self.user_agent_list) ##从self.user_agent_list中随机取出一个字符串
+        headers = {'User-Agent': UA}  ##构造成一个完整的User-Agent （UA代表的是上面随机取出来的字符串哦）
 
-        if proxy == None:
+        if proxy == None: ##当代理为空时，不使用代理获取response（别忘了response啥哦！之前说过了！！）
             try:
-                return requests.get(url,headers=headers,timeout=timeout)
-            except:
-                if num_retries > 0:
-                    time.sleep(10)
-                    print(u'获取网页出错，10S后将获取第',num_retries,u'次')
-                    return self.get(url,timeout,num_retries-1)
+                return requests.get(url, headers=headers, timeout=timeout)##这样服务器就会以为我们是真的浏览器了
+            except:##如过上面的代码执行报错则执行下面的代码
+ 
+                if num_retries > 0: ##num_retries是我们限定的重试次数
+                    time.sleep(10) ##延迟十秒
+                    print(u'获取网页出错，10S后将获取倒数第：', num_retries, u'次')
+                    return self.get(url, timeout, num_retries-1)  ##调用自身 并将次数减1
                 else:
-                    print('使用代理')
+                    print(u'开始使用代理')
+                    time.sleep(10)
+                    IP = ''.join(str(random.choice(self.iplist)).strip()) ##下面有解释哦
+                    proxy = {'http': IP}
+                    return self.get(url, timeout, proxy) ##代理不为空的时候
+ 
+        else: ##当代理不为空
+            try:
+                IP = ''.join(str(random.choice(self.iplist)).strip()) ##将从self.iplist中获取的字符串处理成我们需要的格式（处理了些什么自己看哦，这是基础呢）
+                proxy = {'http': IP} ##构造成一个代理
+                return requests.get(url, headers=headers, proxies=proxy, timeout=timeout) ##使用代理获取response
+            except:
+ 
+                if num_retries > 0:
                     time.sleep(10)
                     IP = ''.join(str(random.choice(self.iplist)).strip())
-                    proxy = {'http':IP}
-                    return self.get(url,timeout,proxy,)
-        else:
-            try:
-                IP = ''.join(str(random.choice(self.iplist)).strip())
-                proxy = {'http':IP}
-                response = requests.get(url,headers=headers,proxies=proxy,timeout=timeout)
-                return response
-            except:
-                if num_retries > 0:
-                    time.sleep(10)
-                    IP = ''.join(str(random.choice(self.iplist).strip()))
-                    proxy = {'http':IP}
-                    print(u'正在更换代理，10秒后重新获取 第', num_retries,u'次')
-                    print(u'当前代理',proxy)
-                    return self.get(url,timeout,proxy,num_retries - 1)
+                    proxy = {'http': IP}
+                    print(u'正在更换代理，10S后将重新获取倒数第', num_retries, u'次')
+                    print(u'当前代理是：', proxy)
+                    return self.get(url, timeout, proxy, num_retries - 1)
                 else:
-                    print(u'取消代理')
-                    return self.get(url,3)
+                    print(u'代理也不好使了！取消代理')
+                    return self.get(url, 3)
 
 request = download()
