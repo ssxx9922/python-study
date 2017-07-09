@@ -49,3 +49,38 @@ print(filter(lambda s: s and len(s.strip()) > 0, ['test', None, '', 'str', '  ',
   数据库事物 ：@transaction
   URL路由 ：post('register')
 """
+
+"""项目初始化"""
+class Person(object):
+    def __init__(self, name, gender, birth, **kw): 
+        self.name = name
+        self.gender = gender
+        self.birth = birth
+        self.__dict__.update(kw)
+
+xiaoming = Person('Xiao Ming', 'Male', '1990-1-1', job='Student')
+
+print(xiaoming.name)
+print(xiaoming.job)
+
+"""类方法"""
+class  Person(object):
+    __count = 0
+    @classmethod
+    def how_many(cls):
+        return cls.__count
+
+    def __init__(self,name):
+        self.name = name
+        Person.__count += 1
+
+print(Person.how_many())
+p1 = Person('Bob')
+print(Person.how_many())
+
+
+"""
+def __init__(self,args):
+    super(SubClass,self).__init__(args)
+    pass 
+"""
