@@ -29,3 +29,5 @@ class Handler(BaseHandler):
             "url": response.url,
             "title": response.doc('title').text(),
         }
+
+        
