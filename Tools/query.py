@@ -1,33 +1,42 @@
-from pyspider.libs.base_handler import *
- 
- 
-class Handler(BaseHandler):
-    crawl_config = {
-    }
-    
-    def __init__(self):
-        self.base_url = 'https://mm.taobao.com/json/request_top_list.htm?page='
-        self.page_num = 1
-        self.total_num = 30
- 
-    @every(minutes=24 * 60)
-    def on_start(self):
-        while self.page_num <= self.total_num:
-            url = self.base_url + str(self.page_num)
-            print url
-            self.crawl(url, callback=self.index_page)
-            self.page_num += 1
- 
-    @config(age=10 * 24 * 60 * 60)
-    def index_page(self, response):
-        for each in response.doc('a[href^="http"]').items():
-            self.crawl(each.attr.href, callback=self.detail_page)
- 
-    @config(priority=2)
-    def detail_page(self, response):
-        return {
-            "url": response.url,
-            "title": response.doc('title').text(),
-        }
+from pyquery import PyQuery as pq
 
-        
+doc = pq(filename = 'hello.html')
+print(doc.html())
+print(type(doc))
+lis = doc('li')
+print(type(lis))
+print(lis.text())
+
+
+p = pq('<p id="hello" class="hello"></p>')('p')
+print(p.attr("id"))
+print(p.attr("id", "plop"))
+print(p.attr("id", "hello"))
+
+print('==========')
+
+print(p.addClass('beauty'))
+print(p.removeClass('hello'))
+print(p.css('font-size', '16px'))
+print(p.css({'background-color': 'yellow'}))
+
+print('==========')
+
+print(p.append(' check out <a href="http://reddit.com/r/python"><span>reddit</span></a>'))
+print(p.prepend('Oh yes!'))
+d =(pq('<div class="wrap"><div id="test"><a href="http://cuiqingcai.com">Germy</a></div></div>'))
+p.prependTo(d('#test'))
+print(p)
+print(d)
+d.empty()
+print(d)
+
+print('=======')
+
+from pyquery import PyQuery as pq
+doc = pq(filename='hello.html')
+lis = doc('li')
+for li in lis.items():
+    print(li.html())
+ 
+print(lis.each(lambda e: e))
