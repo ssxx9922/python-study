@@ -7,7 +7,8 @@ import unittest
 class PythonOrgSearch(unittest.TestCase):
     
     def setUp(self):
-        self.driver = webdriver.Safari()
+        path = '/Users/pp/chromedriver'
+        self.driver = webdriver.Chrome(path)
 
     def test_search_in_python_org(self):
         driver = self.driver
