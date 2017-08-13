@@ -8,6 +8,10 @@ from requests.exceptions import ConnectionError
 from pyquery import PyQuery as pq
 from weixinConfig import *
 
+client = pymongo.MongoClient(MONGO_URI)
+db = client[MONGO_DB]
+
+
 base_url = 'http://weixin.sogou.com/weixin?'
 
 headers = {
@@ -58,7 +62,7 @@ def get_html(url, count=1):
     except ConnectionError as e:
         print('error occurred',e.args)
         proxy = get_proxy()
-        proxy += 1
+        count += 1
         return get_html(url,count)
 
 def get_index(keyword,page):
@@ -106,7 +110,10 @@ def parse_detail(html):
         return None
 
 def save_to_mongo(data):
-    print(data)
+    if db['articles'].update({'title': data['title']}, {'$set': data}, True):
+        print('Saved to Mongo', data['title'])
+    else:
+        print('Saved to Mongo Failed', data['title'])
 
 def main():
     for page in range(1, 101):

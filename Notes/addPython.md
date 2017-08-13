@@ -1,8 +1,11 @@
+
+
 ### 安装 [Anaconda](https://www.continuum.io/)
 python集成环境
 
 ### 安装 [python](https://www.python.org/)
 
+`brew install python3`
 `sudo apt-get install python3`  
 `sudo apt-get install python3-pip`
 
@@ -13,8 +16,10 @@ python集成环境
 
 ### 安装 [redis](https://redis.io/)
 `sudo apt-get isntall redis`
-####启动
+### 启动
 `redis-cli`
+### 安装 redis GUI
+`brew cask install rdm`
 
 ### 安装 [mysql]()
 `sudo apt-get install mysql-server mysql-client`

@@ -59,3 +59,4 @@ Cleaning up...
 #### 官方mysql-connector-python `$ pip install mysql-connector-python --allow-external mysql-connector-python`
 #### pymysql `pip3 install pymysql`
 
+/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages
