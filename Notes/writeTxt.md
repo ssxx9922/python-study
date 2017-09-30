@@ -19,3 +19,49 @@ with open('explore.txt', 'a', encoding='utf-8') as file:
     file.write('\n'.join([question, author, answer]))
     file.write('\n' + '=' * 50 + '\n')
 ```
+
+
+### csv操作
+
+###### 写入
+```
+import csv
+with open('data.csv', 'w') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(['id', 'name', 'age'])
+```
+字典的写入方式
+```
+with open('data.csv', 'w') as csvfile:
+    fieldnames = ['id', 'name', 'age']
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerow({'id': '10001', 'name': 'Mike', 'age': 20})
+```
+###### 读取
+```
+import csv
+with open('data.csv', 'r', encoding='utf-8') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+        print(row)
+```
+利用 Pandas 的 read_csv() 方法将数据从 CSV 中读取出来
+```
+import pandas  as pd
+
+df = pd.read_csv('data.csv')
+print(df)
+```
+
+### json操作
+###### 读取
+```
+import json
+data = json.loads(str)
+```
+###### 输出
+```
+with open('data.json', 'w', encoding='utf-8') as file:
+    file.write(json.dumps(data, indent=2, ensure_ascii=False))
+```
