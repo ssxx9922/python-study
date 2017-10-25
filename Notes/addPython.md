@@ -39,6 +39,16 @@ python集成环境
 - [PhantomJS](http://phantomjs.org)
 - `pip3 install aiohttp`
 - `pip3 install cchardet aiodns`
+
+### 配置环境变量
+`$vim ~/.bash_profile`
+添加下面语句保存
+`export PATH="$PATH:/Users/xxx/phantomjs-2.1.1-macosx/bin"`
+在执行
+`$source ~/.bash_profile`
+如果出现命令丢失,则执行
+`export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin`
+
 ### 解析库
 - `pip3 install lxml`
 - `pip3 install beautifulsoup4`

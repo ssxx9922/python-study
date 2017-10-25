@@ -3,23 +3,27 @@
 import requests
 import re
 import pymongo
-
+import time
 
 class douban():
     def __init__(self):
-        for i in range(16,50):
+        for i in range(1,1000,20):
             print('第',i,'页')
             url = self.getUrl(i)
             html = self.getRequest(url)
-            self.readBook(html.text)
+            print(html)
+            self.readBook(html)
+            time.sleep(4)
 
     def getRequest(self,url):
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'}
         response = requests.get(url, headers=headers)
-        return response
+        if response.status_code == 200:
+            return response.text
+        return None
 
     def getUrl(self,page):
-        url = "https://book.douban.com/tag/%E7%BB%8F%E6%B5%8E%E5%AD%A6?type=T&start=" + str(page*20)
+        url = "https://book.douban.com/tag/%E7%BB%8F%E6%B5%8E%E5%AD%A6?type=T&start=" + str(page)
         return url
 
     def readBook(self,html):
@@ -42,7 +46,7 @@ class douban():
                 press = hhh[-3].strip()  # 出版社
             print('======')
             self.sqlInset(name,author,score,price,time,press,url)
-            # print('保存了',name)
+            print('保存了',name)
 
     def sqlInset(self,name,author,score,price,time,press,url):
         try:

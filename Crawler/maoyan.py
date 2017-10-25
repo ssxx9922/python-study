@@ -5,11 +5,13 @@ from requests.exceptions import RequestException
 import re
 import json
 from multiprocessing import Pool
+import time
 
 def get_one_page(url):
     try:
         hearder = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'}
         response = requests.get(url)
+        print(url," -->  ",response.status_code)
         if response.status_code == 200:
             return response.text
         return None
@@ -37,16 +39,21 @@ def wrtie_to_file(content):
         f.close()
 
 def main(offset):
-    url = 'http://maoyan.com/board/4??offset=' + str(offset)
+    url = 'http://maoyan.com/board/4?offset=' + str(offset)
+    print(url)
     html = get_one_page(url)
+    print(html)
     for item in parse_one_page(html):
         print(item)
         wrtie_to_file(item)
 
                          
 if __name__ == '__main__':
-    pool = Pool()
-    pool.map(main,[i*10 for i in range(10)])
-    pool.close()
-    pool.join()
+    # pool = Pool()
+    # pool.map(main,[i*10 for i in range(10)])
+    # pool.close()
+    # pool.join()
     # main(0)
+    for i in range(0,90,10):
+        main(i)
+        time.sleep(1)
