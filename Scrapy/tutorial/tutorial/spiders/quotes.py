@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
+from tutorial.items import TutorialItem
 
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
@@ -10,11 +10,18 @@ class QuotesSpider(scrapy.Spider):
     def parse(self, response):
         quotes = response.css('.quote')
         for quote in quotes:
-            item = QuotetutorialItem()
+            item = TutorialItem()
             text = quote.css('.text::text').extract_first()
             author = quote.css('.author::text').extract_first()
-            tags = quotes.css('.tags .tag::text').extract()
+            tags = quote.css('.tags .tag::text').extract()
             item['text'] = text
             item['author'] = author
             item['tags'] = tags
             yield item
+
+        next = response.css('.pager .next a::attr(href)').extract_first()
+        url = response.urljoin(next)
+        print('======= >>>',url)
+        yield scrapy.Request(url=url, callback=self.parse)
+
+    
