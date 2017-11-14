@@ -33,14 +33,17 @@ def openLogin():
         inpotPwd.send_keys(pwd)
 
         imgUrl = browser.find_element_by_css_selector('#imgCaptcha').get_attribute('src')
+        print(imgUrl)
+        print('==========')
 
-
-        browser.save_screenshot('web.jpg')
-        # cookie = {}
-        # for i in browser.get_cookies():
-        #     cookie[i['name']]=i['value']
-
-        # downloadImage(imgUrl,cookie,'1')
+        # browser.save_screenshot('web.jpg')
+        cookie = {}
+        for i in browser.get_cookies():
+            cookie[i['name']]=i['value']
+        
+        print(cookie)
+        print('==========')
+        downloadImage(imgUrl,cookie,'1')
 
         code = input("验证码:")
         
@@ -88,9 +91,9 @@ def openBrowser():
         print('打开网页出错',err)
 
 def downloadImage(url,cookie,name):
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'}
+    # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'}
 
-    response = requests.get(url,cookies=cookie,headers=headers)
+    response = requests.get(url,cookies=cookie)
     img = open(name + '.jpg','wb+')
     img.write(response.content)
     img.close()
