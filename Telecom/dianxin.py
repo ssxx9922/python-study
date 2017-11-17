@@ -9,11 +9,17 @@ from selenium.webdriver.support import expected_conditions as EC
 import requests
 import os
 
-path = '/Users/yy/PY/chromedriver/chromedriver'
-browser = webdriver.Chrome(path)
+
+# chrome_options = webdriver.ChromeOptions()
+# prefs = {"profile.managed_default_content_settings.images":2}
+# chrome_options.add_experimental_option("prefs",prefs)
+            
+# path = '/Users/yy/PY/chromedriver/chromedriver'
+# browser = webdriver.Chrome(executable_path=path,chrome_options=chrome_options)
+browser = webdriver.Safari()
 
 mobile = '18050055118'
-pwd = '518316'
+pwd = '518317'
 
 wait = WebDriverWait(browser,10)
 
@@ -36,14 +42,13 @@ def openLogin():
         print(imgUrl)
         print('==========')
 
-        # browser.save_screenshot('web.jpg')
-        cookie = {}
-        for i in browser.get_cookies():
-            cookie[i['name']]=i['value']
+        cookiedict = {}
+        for cookie in browser.get_cookies():
+            cookiedict[cookie['name']] = cookie['value']
         
         print(cookie)
         print('==========')
-        downloadImage(imgUrl,cookie,'1')
+        downloadImage(imgUrl,cookiedict,'1')
 
         code = input("验证码:")
         
@@ -91,9 +96,8 @@ def openBrowser():
         print('打开网页出错',err)
 
 def downloadImage(url,cookie,name):
-    # headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'}
-
-    response = requests.get(url,cookies=cookie)
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24'}
+    response = requests.get(url,cookies=cookie,headers=headers)
     img = open(name + '.jpg','wb+')
     img.write(response.content)
     img.close()
