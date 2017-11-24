@@ -28,4 +28,24 @@ def login(mobile,pwd,code,cookies):
     print(response.headers['Set-Cookie'])
 
 
-login('18050055118','0uPemJpAdhN40Sj97vogmg==','rw4n','__qc_wId=119; pgv_pvid=3095951590; EcsCaptchaKey=mZg8aWaXiKYSnFewnKDwzzDGswdKEY2BklC2mhmeJaf46%2BBm%2Bo2o0Q%3D%3D; ECS_ReqInfo_login1=U2FsdGVkX19dNvyqLHDT4MoLv3LyuvBJrTi9E6hNzaZQMCyx3WzYrMCXQwwr8%2BmqrK7d5lLQrnRl3JmyJEUpOtpZsxnIuMyy3FKiVYYzSn8%3D')
+# login('18050055118','0uPemJpAdhN40Sj97vogmg==','rw4n','__qc_wId=119; pgv_pvid=3095951590; EcsCaptchaKey=mZg8aWaXiKYSnFewnKDwzzDGswdKEY2BklC2mhmeJaf46%2BBm%2Bo2o0Q%3D%3D; ECS_ReqInfo_login1=U2FsdGVkX19dNvyqLHDT4MoLv3LyuvBJrTi9E6hNzaZQMCyx3WzYrMCXQwwr8%2BmqrK7d5lLQrnRl3JmyJEUpOtpZsxnIuMyy3FKiVYYzSn8%3D')
+
+from Crypto.Cipher import AES
+from Crypto import Random
+import base64
+
+BS = AES.block_size
+pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+
+key = '33b21adee1b8620a7ba81aea1a80c724'
+iv = '1234567812345678'
+cipher = AES.new(key, AES.MODE_CBC, iv)
+msg = cipher.encrypt(pad('518316'))
+msg = base64.b64encode(msg)
+print(msg)
+
+iv = Random.new().read(AES.block_size)
+cipher = AES.new('login.189.cn', AES.MODE_ECB)
+msg = cipher.encrypt(pad('18926089010$$201$地市（中文/拼音）$20$$$0'))
+msg = base64.b64encode(msg)
+print(msg)

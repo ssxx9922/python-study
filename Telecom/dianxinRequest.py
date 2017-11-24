@@ -52,34 +52,36 @@ def get_code_image(cookies):
     return response.cookies['EcsCaptchaKey']
 
 
-def login(mobile,pwd,code,cookies):
+def login(mobile,pwd,code,provinceId,cookies):
     login_url = 'http://login.189.cn/web/login'
     mpwd = dianxin1.process_pwd(pwd)
     headers = {'Content-Type':'application/x-www-form-urlencoded',
     'User-Agent':'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36',
     'Content-Type':'application/x-www-form-urlencoded',
     'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'}
-    body = {'m':'captcha','Account':mobile,'UType':'201','ProvinceID':'14','RandomFlag':'','Password':mpwd,'Captcha':code}
+    body = {'AreaCode':'','CityNo':'','Account':mobile,'UType':'201','ProvinceID':provinceId,'RandomFlag':'0','Password':pwd,'Captcha':code}
     print(body)
-    response = requests.post(login_url,headers=headers,data=body,cookies=cookies)
+    response = requests.post(login_url,headers=headers,cookies=cookies,data=body,allow_redirects=False)
     print(response.status_code)
-    print(response.text)
+    print(response.headers)
+    id_url = response.headers['Location']
+
+    response = requests.get(id_url,allow_redirects=False)
+    print(response.status_code)
+    print(response.headers['Set-Cookie'])
 
 
-mobile = '18050055118'
-pwd = '518316'
+mobile = '18926089010'
+pwd = 'TKcRwJjeQKQoa2JnvP8wPg=='
 
-svid = get_svid()
-cookie = dianxin1.get_cookie()
-cookie['svid'] = svid
+cookie = dianxin1.get_new_cookie()
 provinceId = verify_mobile(mobile,cookie)
-send_fenxi(cookie)
 verify_get_code(mobile,provinceId,cookie)
 key = get_code_image(cookie)
+verify_get_code(mobile,provinceId,cookie)
 print('key => ',key)
 code = input('请输入验证码:')
 cookie['EcsCaptchaKey']=key
-cookie['ECS_ReqInfo_login1']='U2FsdGVkX1/hUKw1akQgPJ6pdk2/TDvCrGoTLk5b59pnJLQUstcin8Rp75hxfCC1ual3jyidmZo09vq8jwrI3mCz2PRbeNDA/B8d77WxDUw='
-cookie['trkHmClickCoords']='961,462,913'
-login(mobile,pwd,code,cookie)
+cookie['ECS_ReqInfo_login1']='U2FsdGVkX18GO8qluxXHGMiR7UY5jbOAvdwS5dcqBPKfgz53R0ImTtKFiBK0IKgo+EflZ4RWauMxiX9wooelPGpmSEep++BTFSL51JHoHls='
+login(mobile,pwd,code,provinceId,cookie)
 
