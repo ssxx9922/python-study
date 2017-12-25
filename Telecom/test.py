@@ -1,31 +1,20 @@
-import requests
+#coding:utf-8
+
+import random
 
 
-# headers = {
-#     # 'Cookie':
-#     # 'svid=A76F320CB60E6921;' + 
-#     # 'lvid=8e717658eb964e373f397730e3a555a2;' + 
-#     # 'nvid=1;'+
-#     # 'trkHmClickCoords=903%2C477%2C913;' + 
-#     'JSESSIONID-JT=F49E4CC7A631E6D40835BF28AE436CB6-n3;'
-#     # 'aactgsh111220=18050055118;'
-#     #  + 
-#     # 'userId=201%7C20170100000001357577;' +  
-#     # 'isLogin=logined;'+
-#     # '.ybtj.189.cn=E6F58803FB894B0121E084D0B7D01677;' + 
-#     # 'loginStatus=logined;'+
-#     # 'cityCode=fj;' +
-#     # 'SHOPID_COOKIEID=10014;' +
-#     # 's_fid=5C194E7155BC4E7C-2271C8B1234F6777;' +
-#     # 'trkId=E21C70F8-D169-4E7F-A36A-86C101B31E0C;' +
-#     # 's_cc=true',
-#     }
-url = 'http://www.189.cn/login/ecs.do?PlatNO=90000&ResultCode=0&Ticket=900003817956498c3b572aeb46ad9b4fab162025ffa3&TxID=10036900007320171123093817000000'
-response = requests.get(url)
-print(response.status_code)
-print(response.headers)
+def game(min,max):
+    num = random.randint(min,max)
+    while True:
+        guess = int(input('请输入一个数'))
+        if guess < num:
+            min = guess
+            print('小了')
+        elif guess > num:
+            max = guess
+            print('大了')
+        else:
+            print('答对了')
+            break
 
-
-# 'svid=A76F320CB60E6921; lvid=8e717658eb964e373f397730e3a555a2; nvid=1; trkHmClickCoords=903%2C477%2C913; JSESSIONID-JT=F49E4CC7A631E6D40835BF28AE436CB6-n3; aactgsh111220=18050055118; userId=201%7C20170100000001357577; isLogin=logined; .ybtj.189.cn=E6F58803FB894B0121E084D0B7D01677; loginStatus=logined; cityCode=fj; SHOPID_COOKIEID=10014; s_fid=5C194E7155BC4E7C-2271C8B1234F6777; trkId=E21C70F8-D169-4E7F-A36A-86C101B31E0C; s_cc=true'
-# 'svid=A76F320CB60E6921; lvid=8e717658eb964e373f397730e3a555a2; nvid=1; trkHmClickCoords=903%2C477%2C913; JSESSIONID-JT=F49E4CC7A631E6D40835BF28AE436CB6-n3; aactgsh111220=18050055118; userId=201%7C20170100000001357577; isLogin=logined; .ybtj.189.cn=E6F58803FB894B0121E084D0B7D01677; loginStatus=logined; cityCode=fj; SHOPID_COOKIEID=10014; s_fid=5C194E7155BC4E7C-2271C8B1234F6777; trkId=E21C70F8-D169-4E7F-A36A-86C101B31E0C; s_cc=true'
-# 'svid=A76F320CB60E6921; lvid=8e717658eb964e373f397730e3a555a2; nvid=1; trkHmClickCoords=903%2C477%2C913; JSESSIONID-JT=F49E4CC7A631E6D40835BF28AE436CB6-n3; aactgsh111220=18050055118; userId=201%7C20170100000001357577; isLogin=logined; .ybtj.189.cn=E6F58803FB894B0121E084D0B7D01677; loginStatus=logined; cityCode=fj; SHOPID_COOKIEID=10014; s_fid=5C194E7155BC4E7C-2271C8B1234F6777; trkId=E21C70F8-D169-4E7F-A36A-86C101B31E0C; s_cc=true'
+game(1,1000)
