@@ -48,10 +48,10 @@ class ZhSpider(scrapy.Spider):
             yield Request(next_page, self.parse_follows)
 
     def parse_followers(self, response):
-        result = json.loads(response.text)
+        results = json.loads(response.text)
 
-        if 'data' in result.keys():
-            for results in results.get('data'):
+        if 'data' in results.keys():
+            for result in results.get('data'):
                 yield Request(self.user_url.format(user=result.get('url_token'), include=self.user_query), self.parse_user)
 
         if 'paging' in result.keys() and result.get('paging').get('is_end') == False:

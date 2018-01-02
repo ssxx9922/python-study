@@ -70,7 +70,7 @@ def login(mobile,pwd,smsPwd):
         'Referer': 'https://login.10086.cn/html/window/loginMini.html?channelID=12003&backUrl=http://shop.10086.cn/i/sso.html',
     }
     print(url)
-    response = requests.get(url,headers=headers,verify=False,allow_redirects=False)
+    response = requests.get(url,headers=headers,verify=False)
     print(response.status_code,response.text)
     print('重定向之前的cookies =>',response.cookies)
     result = json.loads(response.text)
@@ -178,8 +178,8 @@ def get_basic(mobile,cookies):
     result = json.loads(response.text)
     print(result['data'])
 
-mobile = '15011463580'
-pwd = '263661'
+mobile = '15730495775'
+pwd = '518099'
 
 chick_bj_mobile(mobile)
 send_code(mobile)
@@ -211,5 +211,8 @@ while(True):
 
 get_basic(mobile,cookies)
 detailbillinfojsonp(mobile,'201711','02',cookies)
+detailbillinfojsonp(mobile,'201710','02',cookies)
+detailbillinfojsonp(mobile,'201711','03',cookies)
+detailbillinfojsonp(mobile,'201710','03',cookies)
 
 
