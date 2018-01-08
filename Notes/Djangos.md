@@ -3,7 +3,7 @@
 ### 安装
 `pip install Django`
 ### 新建工程
-`django-admin.py startproject project_name`
+`django-admin startproject project_name`
 ### 新加App
 cd到工程目录下
 `python manage.py startapp app_name`
@@ -32,6 +32,12 @@ python manage.py migrate
 python manage.py dumpdata appname > appname.json
 python manage.py loaddata appname.json
 ```
+
+### 编译模型
+`python3 manage.py makemigrations`
+
+### 导入数据库
+`python3 manage.py migrate`
 
 ### 数据库命令行
 `python manage.py dbshell`
