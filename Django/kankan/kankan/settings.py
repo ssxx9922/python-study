@@ -25,7 +25,7 @@ SECRET_KEY = '#r)mwem(3j23)jo2bu=a!7i80!t@t$(#lpke&1*rf@r)v9u-v('
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost'] 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'kankan.middleware.kankanMiddleware'
+    # 'kankan.middleware.kankanMiddleware'
 ]
 
 ROOT_URLCONF = 'kankan.urls'
