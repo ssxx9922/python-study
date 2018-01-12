@@ -46,6 +46,42 @@ python manage.py loaddata appname.json
 `python manage.py shell`
 `pip install bpython`
 
+# ubantu安装Python3
+
+1. 安装python3
+
+`apt-get install python3`
+ 
+2. 安装pip3
+
+`apt-get install python3-pip`
+
+3. 为python3添加包
+
+`pip3 install packagename`
+
+4. 安装pillow
+
+> 首先安装支持包
+
+`apt-get install libjpeg-dev libfreetype6-dev zlib1g-dev libpng12-dev`
+
+> 安装pillow
+
+`pip3 install pillow`
+
+5. 创建python3的虚拟环境
+
+`virtualenv -p /usr/bin/python3 环境名称`或者`virtualenv -p python3 环境名称`
+
+6. 如果不能安装python3-pip（比如低版本ubuntu），如何使用pip安装python3 库
+
+`python3 -m pip install 包`
+
+7. 另一个安装pip3方法:
+
+`aptitude install python3-setuptools # 安装easy_install3工具`
+`easy_install3 pip`     # 安装pip3
 
 # ssh 上传文件至服务器
 
@@ -68,3 +104,8 @@ python manage.py loaddata appname.json
 `scp  -r local_dir username@servername:remote_dir`
 >例如：scp -r test  root@192.168.0.101:/var/www/   把当前目录下的test目录上传到服务器的/var/www/ 目录
 
+- zip压缩文件
+`zip -r archive_name.zip directory_to_compress`
+
+- zip解压文件
+`unzip unzip archive_name.zip`
