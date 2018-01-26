@@ -1,5 +1,6 @@
 from pandas import Series,DataFrame
 import pandas as pd
+import numpy as np
 
 obj = Series([4,7,-5,3])
 print(obj)
@@ -56,7 +57,36 @@ frame2 = pd.DataFrame(data, columns=['year', 'state', 'pop', 'debt'],index=['one
 
 print(frame2)
 
-print('-')
+print('通过位置或名称的方式进行获取，比如用loc属性 =>')
 
 print(frame2.loc['three'])
 
+print('')
+
+frame2['debt'] = np.arange(6.)
+
+print(frame2)
+
+print('')
+
+val = pd.Series([-1.2, -1.5, -1.7], index=['two', 'four', 'five'])
+
+
+frame2['debt'] = val
+print(frame2)
+
+print('新增列=>')
+frame2['eastern'] = frame2.state == 'Ohio'
+print(frame2)
+
+print('删除列 =>')
+del frame2['eastern']
+print(frame2)
+print(frame2.columns)
+
+
+print('嵌套字典 =>')
+pop = {'Nevada': {2001: 2.4, 2002: 2.9},'Ohio': {2000: 1.5, 2001: 1.7, 2002: 3.6}}
+frame3 = pd.DataFrame(pop)
+print(frame3)
+print(' => T' , '\n',frame3.T)
