@@ -16,28 +16,31 @@ class Courses(models.Model):
     click_nums = models.IntegerField(default=0, verbose_name='点击量')
     add_time = models.DateTimeField(default=datetime.now)
 
-    class Mate:
+    class Meta:
         verbose_name = '课程'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name
 
+    def __unicode__(self):
+        return self.name
 
 class Lesson(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name='课程')
     name = models.CharField(max_length=100, verbose_name='章节')
     add_time = models.DateTimeField(default=datetime.now,verbose_name='添加时间')
 
-    class Mate:
+    class Meta:
         verbose_name = '章节'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name
+
 
 class Video(models.Model):
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, verbose_name='章节')
     name = models.CharField(max_length=100, verbose_name='视频名')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
-    class Mate:
+    class Meta:
         verbose_name = '视频'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name
 
 class CourseResoure(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE, verbose_name='课程')
@@ -45,6 +48,6 @@ class CourseResoure(models.Model):
     download = models.FileField(upload_to='course/resource/%y/%m', verbose_name='下载地址')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
-    class Mate:
+    class Meta:
         verbose_name = '视频资源'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name

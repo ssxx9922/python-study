@@ -9,9 +9,9 @@ class CityDict(models.Model):
     desc = models.CharField(max_length=200, verbose_name='描述')
     add_time = models.DateTimeField(default=datetime.now)
 
-    class Mate:
+    class Meta:
         verbose_name = '城市'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name
 
 class courseOrg(models.Model):
     name = models.CharField(max_length=50, verbose_name='机构名称')
@@ -23,9 +23,9 @@ class courseOrg(models.Model):
     city = models.ForeignKey(CityDict, on_delete=models.CASCADE, verbose_name='所在城市')
     add_time = models.DateTimeField(default=datetime.now)
 
-    class Mate:
+    class Meta:
         verbose_name = '机构'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name
 
 class Teacher(models.Model):
     org = models.ForeignKey(courseOrg, on_delete=models.CASCADE, verbose_name='所属机构')
@@ -38,6 +38,6 @@ class Teacher(models.Model):
     fev_nums = models.IntegerField(default=0, verbose_name='收藏数')
     add_time = models.DateTimeField(default=datetime.now)
 
-    class Mate:
+    class Meta:
         verbose_name = '教师'
-        verbose_name_plrual = verbose_name
+        verbose_name_plural = verbose_name

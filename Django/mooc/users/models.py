@@ -36,7 +36,7 @@ class EmailVerifyRecord(models.Model):
     def __str__(self):
         return '(' + self.email + ')' + self.code
 
-    class Mate:
+    class Meta:
         verbose_name = '邮箱验证码'
         verbose_name_plural = verbose_name
 
@@ -48,6 +48,9 @@ class Banner(models.Model):
     index = models.IntegerField(default=100, verbose_name='顺序')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
-    class Mate:
+    def __str__(self):
+        return self.title
+
+    class Meta:
         verbose_name = '轮播图'
         verbose_name_plural = verbose_name
