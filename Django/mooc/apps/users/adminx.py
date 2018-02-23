@@ -22,6 +22,13 @@ class GlobalSetting(object):
     site_title = 'mooc'  # 设置头标题
     site_footer = 'mooc'  # 设置脚标题
 
-    menu_style = 'accordion'
+    menu_style = 'accordion'  # 菜单课收缩
 
 xadmin.site.register(views.CommAdminView, GlobalSetting)
+
+
+class BaseSetting(object):
+    enable_themes = True  # 设置可更换主题
+    use_bootswatch = True
+
+xadmin.site.register(views.BaseAdminView, BaseSetting)
