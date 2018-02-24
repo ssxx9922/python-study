@@ -4,7 +4,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.views.generic.base import View
 
-from users.forms import LoginForm
+from users.forms import LoginForm, RegisterForm
 from .models import UserProfile
 
 # Create your views here.
@@ -37,6 +37,7 @@ class LoginView(View):
 
 class RegisterView(View):
     def get(self, request):
-        return render(request, 'register.html', {})
+        register_form = RegisterForm()
+        return render(request, 'register.html', {'register_form':register_form})
     def post(self, request):
         pass
