@@ -14,4 +14,13 @@ class LoginForm(forms.Form):
 class RegisterForm(forms.Form):
     username = forms.EmailField(required=True, min_length=3, max_length=21)
     password = forms.CharField(required=True, min_length=5, max_length=21)
-    captcha = CaptchaField()
+    captcha = CaptchaField(error_messages={'invalid':'验证码错误'})
+
+
+class FergetPwdForm(forms.Form):
+    username = forms.EmailField(required=True, min_length=3, max_length=21)
+    captcha = CaptchaField(error_messages={'invalid': '验证码错误'})
+
+class ResetPwdForm(forms.Form):
+    password1 = forms.CharField(required=True, min_length=5, max_length=21)
+    password2 = forms.CharField(required=True, min_length=5, max_length=21)
