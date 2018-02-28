@@ -16,8 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import TemplateView
+from django.views.static import serve
 
 import xadmin
+# from mooc.settings import STATIC_ROOT
+
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, LogoutView
 
 urlpatterns = [
@@ -30,9 +33,13 @@ urlpatterns = [
     path('forgetpwd/', ForgetPwdView.as_view(), name='forget_pwd'),
     path('captcha/', include('captcha.urls')),
     path('active/<str:active_code>/', ActiveUserView.as_view(), name='userActive'),
-    path('reset/<str:active_code>/', ResetView.as_view(), name='userReset')
+    path('reset/<str:active_code>/', ResetView.as_view(), name='userReset'),
+    # path('static/<str:path>/', serve, {'document_root', STATIC_ROOT})
     # path('users/', include('users.urls')),
     # path('courses/', include('courses.urls')),
     # path('organization/', include('organization.urls')),
     # path('operation/', include('operation.urls'))
 ]
+
+handler404 = 'users.views.page_not_found'
+handler500 = 'users.views.page_error'

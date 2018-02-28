@@ -26,7 +26,8 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = 'x*8nwtx_87!(nu!x*@lr!rhcj(h3pt4d5mkvh2!4a_f-^u-8)s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
@@ -137,6 +138,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
@@ -152,3 +154,4 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = 'ssxx9922@163.com' # 帐号
 EMAIL_HOST_PASSWORD = 'sxYL19920316'  # 密码
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
