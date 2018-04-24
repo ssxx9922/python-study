@@ -14,14 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.urls import path
-
+from django.urls import path, include
 
 import xadmin
 from restShop.settings import MEDIA_ROOT
 from django.views.static import serve
+from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
+
+from goods.views import GoodsListViewSet
+
+router = DefaultRouter()
+
+router.register('goods',GoodsListViewSet)
+
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
     url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+
+    #商品列表页
+    path('',include(router.urls)),
+
+    path('docs',include_docs_urls(title='卖东西文档')),
+    path('api-auth/', include('rest_framework.urls'))
 ]

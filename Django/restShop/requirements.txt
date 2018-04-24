@@ -12,3 +12,5 @@ httplib2>=0.11.3
 six>=1.11.0
 xlsxwriter>=1.0.4
 xlwt
+django-guardian>=1.4.9
+coreapi

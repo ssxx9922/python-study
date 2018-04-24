@@ -29,7 +29,7 @@ SECRET_KEY = '4lf%1m!@m%m@hu^njm4$4v*(@2qp1gytt2+m+!mip_e@z1xi_y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 AUTH_USER_MODEL = 'users.UserProfile'
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'DjangoUeditor',
+    'rest_framework',
     'user_operation.apps.UserOperationConfig',
     'goods.apps.GoodsConfig',
     'trade.apps.TradeConfig',
@@ -139,3 +140,8 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+# REST_FRAMEWORK = {
+#     'PAGE_SIZE': 15,
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination'
+# }
